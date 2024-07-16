@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display JSON Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .heuristic {
+            margin-bottom: 20px;
+        }
+        .heuristic h2 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Design System Heuristics</h1>
+    <div id="content"></div>
+
+    <script>
+        async function fetchJSON() {
+            const response = await fetch('https://raw.githubusercontent.com/EightShapes/design-system-heuristics/main/heuristics.json');
+            const data = await response.json();
+            displayData(data);
+        }
+
+        function displayData(data) {
+            const contentDiv = document.getElementById('content');
+            data.heuristics.forEach(heuristic => {
+                const heuristicDiv = document.createElement('div');
+                heuristicDiv.className = 'heuristic';
+                const title = document.createElement('h2');
+                title.textContent = heuristic.title;
+                const description = document.createElement('p');
+                description.textContent = heuristic.description;
+                heuristicDiv.appendChild(title);
+                heuristicDiv.appendChild(description);
+                contentDiv.appendChild(heuristicDiv);
+            });
+        }
+
+        // Fetch and display the JSON data when the page loads
+        fetchJSON();
+    </script>
+</body>
+</html>
