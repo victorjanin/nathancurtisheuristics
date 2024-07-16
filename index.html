@@ -16,6 +16,13 @@
             font-style: normal;
             }
 
+        :root {
+            --text:224, 251, 252;
+            --main-bg-color: rgb(41, 50, 65);
+            --main-text-color: rgb(var(--text));
+            --main-accent-color: rgb(238, 108, 77);
+            --border:rgba(var(--text), 0.3);
+        }
 
         body {
             font-family: "Inter", Arial, sans-serif;
@@ -25,8 +32,8 @@
             font-variation-settings:
                 "slnt" 0;
             padding: 20px;
-            background-color: #393E41;
-            color: #F6F7EB;
+            background-color: var(--main-bg-color);
+            color: var(--main-text-color);
         }
 
        h1 {
@@ -35,7 +42,7 @@
         font-size: 7vw;
         letter-spacing: 0.03em;
         font-weight: 660;
-        color:#F6F7EB;
+        color: var(--main-text-color);
         margin-bottom: 0;
        }
        #subtitle {
@@ -56,7 +63,7 @@
 
         .heuristic-card {
             width: 300px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border);
             border-radius: 5px;
             padding: 15px;
             margin: 10px 0;
@@ -71,16 +78,26 @@
             font-size: 1em;
             margin-bottom: 8px;
         }
+        .category-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+
         .heuristic-card .subcategory, .heuristic-card .category {
             font-size: 0.875em;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
+
+
         #categoryChips {    
             margin: 32px auto 32px;
             width: fit-content;
         }
         #categoryChips .chip {    
             font-size: 1.25rem;
+            border: 1px solid var(--main-accent-color);
+            padding: 12px 24px;
+            margin: 12px;
         }
 
         #subcategoryChips {
@@ -96,11 +113,12 @@
             font-size: 0.875rem;
             border-radius: 25px;
             background-color: #;
-            color: #000;
+            color: var(--main-text-color);
             cursor: pointer;
         }
         .chip.selected {
-            background-color: #E94F37;
+            background-color: var(--main-accent-color);
+            color: #000;
         }
     </style>
 </head>
