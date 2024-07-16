@@ -23,13 +23,25 @@
 
     <script>
         async function fetchJSON() {
-            const response = await fetch('https://raw.githubusercontent.com/EightShapes/design-system-heuristics/main/heuristics.json');
-            const data = await response.json();
-            displayData(data);
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/EightShapes/design-system-heuristics/main/heuristics.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const data = await response.json();
+                console.log('Fetched data:', data); // Log the fetched data
+                displayData(data);
+            } catch (error) {
+                console.error('Error fetching JSON data:', error);
+                document.getElementById('content').textContent = 'Failed to load heuristics data.';
+            }
         }
 
         function displayData(data) {
             const contentDiv = document.getElementById('content');
+            if (!data.heuristics || !Array.isArray(data.heuristics)) {
+                throw new Error('Invalid data format: expected an array of heuristics');
+            }
             data.heuristics.forEach(heuristic => {
                 const heuristicDiv = document.createElement('div');
                 heuristicDiv.className = 'heuristic';
@@ -46,5 +58,6 @@
         // Fetch and display the JSON data when the page loads
         fetchJSON();
     </script>
+
 </body>
 </html>
