@@ -4,10 +4,10 @@
     // Define a mapping of categories to emojis
     const categoryEmojis = {
         "Code": "💻",
-        "Documentation": "📄",
+        "Documentation": "📝",
         "Features": "⚙️",
-        "People": "👥",
-        "Process": "🔄",
+        "People": "👯",
+        "Process": "🎡",
         "Strategy": "🚀"  // Emoji for "Strategy"
         // Add more categories and their corresponding emojis as needed
     };
