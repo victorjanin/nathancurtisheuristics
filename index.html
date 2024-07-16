@@ -9,17 +9,51 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
+        #content {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            gap: 16px;
+       }
+
         .heuristic {
             margin-bottom: 20px;
         }
         .heuristic h2 {
             margin: 0;
         }
+
+        .heuristic-card {
+
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .heuristic-card .topic {
+            font-size: 1.25em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .heuristic-card .heuristic {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        .heuristic-card .subcategory, .heuristic-card .category {
+            font-size: 0.875em;
+            margin-bottom: 5px;
+            color: #777;
+        }
     </style>
+    
 </head>
 <body>
     <h1>Design System Heuristics</h1>
     <div id="content"></div>
+    
 
     <script>
         async function fetchJSON() {
@@ -39,20 +73,46 @@
 
         function displayData(data) {
             const contentDiv = document.getElementById('content');
-            if (!data.heuristics || !Array.isArray(data.heuristics)) {
+            console.log(data); // Log the data structure
+
+            if (Array.isArray(data)) {
+                data.forEach(heuristic => {
+                    createHeuristicElement(contentDiv, heuristic);
+                });
+            } else if (data.heuristics && Array.isArray(data.heuristics)) {
+                data.heuristics.forEach(heuristic => {
+                    createHeuristicElement(contentDiv, heuristic);
+                });
+            } else {
                 throw new Error('Invalid data format: expected an array of heuristics');
             }
-            data.forEach(heuristic => {
-                const heuristicDiv = document.createElement('div');
-                heuristicDiv.className = 'heuristic';
-                const title = document.createElement('h2');
-                title.textContent = heuristic.title;
-                const description = document.createElement('p');
-                description.textContent = heuristic.description;
-                heuristicDiv.appendChild(title);
-                heuristicDiv.appendChild(description);
-                contentDiv.appendChild(heuristicDiv);
-            });
+        }
+
+        function createHeuristicElement(parent, heuristic) {
+            const heuristicDiv = document.createElement('div');
+            heuristicDiv.className = 'heuristic-card';
+
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'category';
+            categoryDiv.textContent = heuristic.category;
+            heuristicDiv.appendChild(categoryDiv);
+
+            const subcategoryDiv = document.createElement('div');
+            subcategoryDiv.className = 'subcategory';
+            subcategoryDiv.textContent = heuristic.subcategory;
+            heuristicDiv.appendChild(subcategoryDiv);
+
+            const topicH2 = document.createElement('h2');
+            topicH2.className = 'topic';
+            topicH2.textContent = heuristic.topic;
+            heuristicDiv.appendChild(topicH2);
+
+            const heuristicP = document.createElement('p');
+            heuristicP.className = 'heuristic';
+            heuristicP.textContent = heuristic.heuristic;
+            heuristicDiv.appendChild(heuristicP);
+
+            parent.appendChild(heuristicDiv);
         }
 
         // Fetch and display the JSON data when the page loads
