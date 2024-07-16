@@ -42,7 +42,7 @@
             if (!data.heuristics || !Array.isArray(data.heuristics)) {
                 throw new Error('Invalid data format: expected an array of heuristics');
             }
-            data.heuristics.forEach(heuristic => {
+            data.forEach(heuristic => {
                 const heuristicDiv = document.createElement('div');
                 heuristicDiv.className = 'heuristic';
                 const title = document.createElement('h2');
